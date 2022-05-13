@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi">
+    <head><!-- head-osan sisältöä ei saa muuttaa -->
+        <script src="https://appro.mit.jyu.fi/tiea2120/vt/vt3/2022/data2022.js"></script>
+        <script async="" type="module" src="vt3.js"></script>
+        <link rel="StyleSheet" href="tyylit.css" type="text/css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="utf-8"/>
+        <title>VT3 - 2022 kevät-kesä</title>
+    </head>
+    <body><!-- Tämän tiedoston sisältöä saa muuttaa vapaasti tästä kommentista eteenpäin
+ Kirjoita mahdollisimman paljon valmista HTML-koodia ja luo javascriptilla dynaamisesti
+ vain tarpeelliset kuten leimaustapojen ja sarjojen valinta sekä joukkuelistaus
+  -->
+       <h1>Tulospalvelu</h1>
+       <form action="post">
+            <fieldset class="kentta"><legend>Joukkueen tiedot</legend>
+                <div><label for="nimi">Nimi<input required="required" type="text" id="nimi"></input></label></div>
+                <div id="sarjaGroup">
+                    <label for="sarja">Sarja</label>
+                </div>
+
+            </fieldset>
+            <fieldset id="jasenet"><legend>Jäsenet</legend>
+                <div><label class="jasen" for="jäsen1">Jäsen 1<input type="text" id="jäsen1"></input></label></div>
+                <div><label class="jasen" for="jäsen2">Jäsen 2<input type="text" id="jäsen2"></input></label></div>
+            </fieldset>
+            <button id="nappi" class="kentta">Tallenna</button>
+       </form>
+       
+       <div>
+           <ul id="listaus"></ul>
+       </div>
+
+<!-- Tästä eteenpäin sivun sisältöä ei saa muuttaa -->
+<!-- Sivun validoinnin voit tehdä milloin tahansa näppäinyhdistelmällä CTRL+ALT+V -->
+<script src="https://appro.mit.jyu.fi/tools/htmlinspector/html-inspector.js"></script>
+<script src="https://appro.mit.jyu.fi/tools/validator/validator.user.js"></script>
+<script src="https://appro.mit.jyu.fi/tools/jshint/jshint.js"></script>
+<script src="https://appro.mit.jyu.fi/tools/jshint/jshint.user.js"></script>
+<script src="https://appro.mit.jyu.fi/tools/htmlinspector/htmlinspector-live.js"></script>
+</body>
+</html>
