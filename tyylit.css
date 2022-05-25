@@ -8,14 +8,23 @@ form {
 }
 
 div {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 button {
     border: 1px solid black;
 }
 
+.clearfield{
+    border-style: none;
+}
+
 .radioB{
+    float: right;
+    clear: both;
+}
+
+.checkB{
     float: right;
     clear: both;
 }

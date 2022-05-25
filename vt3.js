@@ -27,6 +27,29 @@ function lisaaRadio(sarjat){
 }
 
 
+function lisaaLeimaustavat(leimaust){
+    //järjestetään sarjat aakkosjärjestykseen
+    leimaust.sort((a, b) => a > b);
+    console.log(leimaust);
+    for(let i = 0; i < leimaust.length; i++){
+        //Haetaan sarjaGroup div
+        let group = document.getElementById("leimausGroup");
+        //Luodaan label ja radiobutton, yhdistetään nimi, id ynnämuu tarvittava ja lisätään sivulle
+        let label = document.createElement("label");
+        label.setAttribute("class", "checkB");
+        label.name = "leimausGroup";
+        label.textContent = leimaust[i];
+        let input = document.createElement("input");
+        input.type = "checkbox";
+        input.setAttribute("name", "leimausGroup");
+
+        label.appendChild(input);
+        group.appendChild(label);
+    }
+    
+}
+
+
 //Funktio jolla dynaamisesti lisätään ja poistetaan jäsen-input kenttiä
 function checkFields(e){
     //Suuri osa tämän funktion koodista perustuu malliin "https://appro.mit.jyu.fi/tiea2120/luennot/forms/dynaaminen.html"
@@ -113,6 +136,12 @@ function checkFields(e){
             }
         }
     }
+    for(let i = 0; i < field.getElementsByTagName("input"); i++){
+        if(field.getElementsByTagName("input")[i].textContent == ""){
+            addNew();
+        }
+    }
+
     if(inputit.length < 2){
         let div = document.createElement("div");
         let label = document.createElement("label");
@@ -150,6 +179,22 @@ function tarkista(e){
         nimi.setCustomValidity("Nimen on oltava vähintään 2 merkkiä pitkä");
     }
 
+    //Tarkistetaan että leimaustapa on ok
+    let leimaus = document.getElementById("leimausGroup").childNodes;
+    let leimausok = 0;
+    for(let i = 3; i < leimaus.length; i++){
+        if(leimaus[i].childNodes[1].checked){
+            leimausok = 1;
+            break;
+        }
+    }
+    if(leimausok == 0){
+        leimaus[3].childNodes[1].setCustomValidity("Valitse vähintään yksi leimaustapa");
+    }
+    else{
+        leimaus[3].childNodes[1].setCustomValidity("");
+    }
+
     //Lasketaan onko tarpeeksi nimiä ja tallennetaan löytyneet listaan
     let jasenet = document.getElementById("jasenet");
     let jasenlista = [];
@@ -168,6 +213,22 @@ function tarkista(e){
     }
     else{
         jasenet.getElementsByTagName("input")[0].setCustomValidity("");
+    }
+
+    //Tarkistetaan että jäsenten nimet on ok
+    console.log("testi");
+    if(jasenet.getElementsByTagName("input")[0].reportValidity()){
+        let nimet = [];
+        for(let i = 0; i < laskuri; i++){
+            nimet.push(jasenet.getElementsByTagName("input")[i].value.trim());
+        }
+        console.log(nimet);
+        if (nimet.length !== new Set(nimet).size) {
+            jasenet.getElementsByTagName("input")[0].setCustomValidity("Joukkueessa ei voi olla samannimisiä henkilöitä");
+        }
+        else{
+            jasenet.getElementsByTagName("input")[0].setCustomValidity("");
+        }
     }
     
 
@@ -257,10 +318,15 @@ function listaa(){
 window.addEventListener("load", function() {
     console.log(data);
     let sarjat = [];
+    let leimaust = [];
     for(let i = 0; i < data.sarjat.length; i++){
         sarjat.push(data.sarjat[i]);
     }
+    for(let i = 0; i < data.leimaustapa.length; i++){
+        leimaust.push(data.leimaustapa[i]);
+    }
     lisaaRadio(sarjat);
+    lisaaLeimaustavat(leimaust);
 
     let inputit = document.getElementById("jasenet").getElementsByTagName("input"); // live nodelist kaikista input-elementeistä
     inputit[0].addEventListener("input", checkFields);
